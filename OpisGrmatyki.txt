@@ -1,0 +1,11 @@
+start -> program EOF | "Epsilon not allowed"
+program -> statement program | ε
+statement -> ID create_stmt | ID assignWithCreation | ID operation | SEP | error
+assignWithCreation -> ASSIGN ID TAB assign_stmt | Ok msg
+assign_stmt -> ID ASSIGN value END assign_stmt | ASSIGN value END | Ok msg | error | TAB assign_stmt
+create_stmt -> TAB assign_stmt | Ok msg | error
+operation -> ID token_type_ID ID | OP token_type_OP ID operation | OP_or_RO ID | Ok msg | error | SEP operation | TAB assign_stmt
+value -> NUMBER | PROC | URL | HEX | STRING | PIX | KEYWORD | error
+
+
+# take_token('ID')  == ID  <==> jednoznaczność w tym opisie gramatyki
